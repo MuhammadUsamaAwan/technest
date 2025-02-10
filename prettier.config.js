@@ -1,4 +1,4 @@
-/** @type { import('prettier').Config & import('@ianvs/prettier-plugin-sort-imports').PluginConfig } */
+/** @type { import('prettier').Config & import('@ianvs/prettier-plugin-sort-imports').PluginConfig & import('prettier-plugin-tailwindcss').PluginOptions } */
 const config = {
   useTabs: false,
   semi: true,
@@ -22,10 +22,11 @@ const config = {
     '^~/lib/(.*)$',
     '^~/components/(.*)$',
     '^~/routes/(.*)$',
+    '^~/styles/(.*)$',
     '',
     '^[./]',
   ],
-  plugins: ['@ianvs/prettier-plugin-sort-imports'],
+  plugins: ['@ianvs/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
 };
 
 export default config;

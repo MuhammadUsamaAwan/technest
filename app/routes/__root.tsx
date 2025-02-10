@@ -3,6 +3,8 @@ import type { ReactNode } from 'react';
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { Meta, Scripts } from '@tanstack/start';
 
+import globalCss from '~/styles/global.css?url';
+
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -17,6 +19,7 @@ export const Route = createRootRoute({
         title: 'TanStack Start Starter',
       },
     ],
+    links: [{ rel: 'stylesheet', href: globalCss }],
   }),
   component: RootComponent,
 });
