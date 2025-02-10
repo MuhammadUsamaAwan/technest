@@ -16,10 +16,21 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TanStack Start Starter',
+        title: 'TechNest - A place for all your tech needs',
+      },
+      {
+        name: 'description',
+        content: 'TechNest is a place for all your tech needs. You can find and buy all the latest tech gadgets here.',
       },
     ],
-    links: [{ rel: 'stylesheet', href: globalCss }],
+    links: [
+      { rel: 'stylesheet', href: globalCss },
+      {
+        rel: 'icon',
+        type: 'image/svg+xml',
+        href: '/favicon.svg',
+      },
+    ],
   }),
   component: RootComponent,
 });
