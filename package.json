@@ -5,11 +5,15 @@
   "scripts": {
     "dev": "vinxi dev",
     "build": "vinxi build",
-    "start": "vinxi start"
+    "start": "vinxi start",
+    "format:write": "prettier --write \"**/*.{html,css,js,cjs,mjs,ts,tsx,json,md,mdx}\" --cache",
+    "format:check": "prettier --check \"**/*.{html,css,js,cjs,mjs,ts,tsx,json,md,mdx}\" --cache"
   },
   "dependencies": {
+    "@ianvs/prettier-plugin-sort-imports": "^4.4.1",
     "@tanstack/react-router": "^1.102.1",
     "@tanstack/start": "^1.102.1",
+    "prettier": "^3.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "vinxi": "^0.5.3"

@@ -28,5 +28,5 @@
     }
   },
   "include": ["**/*.ts", "**/*.js"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", ".output", ".vinxi"]
 }
