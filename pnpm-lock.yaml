@@ -30,6 +30,9 @@ importers:
       '@ianvs/prettier-plugin-sort-imports':
         specifier: ^4.4.1
         version: 4.4.1(prettier@3.5.0)
+      '@tanstack/eslint-plugin-router':
+        specifier: ^1.99.3
+        version: 1.99.3(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
       '@types/react':
         specifier: ^19.0.8
         version: 19.0.8
@@ -1020,6 +1023,11 @@ packages:
   '@tanstack/directive-functions-plugin@1.99.5':
     resolution: {integrity: sha512-+1e6iOVipOqzA8f/dDU/cnb1WtaxS7h5CgGNYn3PaXU6Iw+wR0HXj7jqjfOUL6y9a3utnA1rLtpivCS2icADsw==}
     engines: {node: '>=12'}
+
+  '@tanstack/eslint-plugin-router@1.99.3':
+    resolution: {integrity: sha512-YPxSaaSyyTj3z++kX6RHdPaflT8gbITKWeY+1HuZgSzr7Wls1abV+WWn3vQKo10eYGDrpedAN4ubEem+l+cRWQ==}
+    peerDependencies:
+      eslint: ^8.57.0 || ^9.0.0
 
   '@tanstack/history@1.99.13':
     resolution: {integrity: sha512-JMd7USmnp8zV8BRGIjALqzPxazvKtQ7PGXQC7n39HpbqdsmfV2ePCzieO84IvN+mwsTrXErpbjI4BfKCa+ZNCg==}
@@ -4220,6 +4228,14 @@ snapshots:
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
+
+  '@tanstack/eslint-plugin-router@1.99.3(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)':
+    dependencies:
+      '@typescript-eslint/utils': 8.23.0(eslint@9.20.0(jiti@2.4.2))(typescript@5.7.3)
+      eslint: 9.20.0(jiti@2.4.2)
+    transitivePeerDependencies:
+      - supports-color
+      - typescript
 
   '@tanstack/history@1.99.13': {}
 

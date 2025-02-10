@@ -1,3 +1,4 @@
+import pluginRouter from '@tanstack/eslint-plugin-router';
 import js from '@eslint/js';
 import react from 'eslint-plugin-react';
 // @ts-expect-error no type declarations available
@@ -21,6 +22,7 @@ export default tseslint.config(
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
       react,
+      '@tanstack/router': pluginRouter,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
