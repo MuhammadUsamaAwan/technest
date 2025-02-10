@@ -1,13 +1,18 @@
 import { createFileRoute } from '@tanstack/react-router';
 import { CpuIcon } from 'lucide-react';
 
+import { Image } from '~/components/image';
+import LoginImage from '~/assets/images/login.jpg?w=786;1080;1400;2160&format=avif&as=picture';
+
 import { LoginForm } from './-components/login-form';
 
 export const Route = createFileRoute('/login/')({
-  component: RouteComponent,
+  component: Login,
 });
 
-function RouteComponent() {
+function Login() {
+  console.log(LoginImage);
+
   return (
     <div className='grid min-h-svh lg:grid-cols-2'>
       <div className='flex flex-col gap-4 p-6 md:p-10'>
@@ -25,13 +30,7 @@ function RouteComponent() {
           </div>
         </div>
       </div>
-      <div className='bg-muted relative hidden lg:block'>
-        <img
-          src='/placeholder.svg'
-          alt='Image'
-          className='absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale'
-        />
-      </div>
+      <Image meta={LoginImage} alt='TechNest' containerClassName='hidden max-h-screen lg:block' sizes='50vw' />
     </div>
   );
 }

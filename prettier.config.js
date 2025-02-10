@@ -22,10 +22,13 @@ const config = {
     '^~/lib/(.*)$',
     '^~/components/(.*)$',
     '^~/routes/(.*)$',
+    '^~/assets/(.*)$',
     '^~/styles/(.*)$',
     '',
     '^[./]',
   ],
+  tailwindAttributes: ['containerClassName', 'imageClassName'],
+  tailwindFunctions: ['cva'],
   plugins: ['@ianvs/prettier-plugin-sort-imports', 'prettier-plugin-tailwindcss'],
 };
 

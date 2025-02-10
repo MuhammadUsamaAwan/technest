@@ -1,5 +1,6 @@
 import { defineConfig } from '@tanstack/start/config';
 import tailwindcss from '@tailwindcss/vite';
+import { imagetools } from 'vite-imagetools';
 import tsConfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
@@ -9,6 +10,7 @@ export default defineConfig({
         projects: ['./tsconfig.json'],
       }),
       tailwindcss(),
+      imagetools(),
     ],
   },
 });

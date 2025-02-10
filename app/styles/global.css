@@ -6,31 +6,31 @@
 
 @font-face {
   font-family: 'giest';
-  src: url('/public/fonts/Geist-Regular.woff2') format('woff2');
+  src: url('../assets/fonts/Geist-Regular.woff2') format('woff2');
   font-weight: 400;
 }
 
 @font-face {
   font-family: 'giest';
-  src: url('/fonts/Geist-Medium.woff2') format('woff2');
+  src: url('../assets/fonts/Geist-Medium.woff2') format('woff2');
   font-weight: 500;
 }
 
 @font-face {
   font-family: 'giest';
-  src: url('/fonts/Geist-SemiBold.woff2') format('woff2');
+  src: url('../assets/fonts/Geist-SemiBold.woff2') format('woff2');
   font-weight: 600;
 }
 
 @font-face {
   font-family: 'giest';
-  src: url('/fonts//Geist-Bold.woff2') format('woff2');
+  src: url('../assets/fonts//Geist-Bold.woff2') format('woff2');
   font-weight: 700;
 }
 
 @font-face {
   font-family: 'giest';
-  src: url('/fonts/Geist-ExtraBold.woff2') format('woff2');
+  src: url('../assets/fonts/Geist-ExtraBold.woff2') format('woff2');
   font-weight: 800;
 }
 
@@ -126,6 +126,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
   }
 }
