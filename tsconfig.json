@@ -27,6 +27,6 @@
       "~/*": ["app/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.js"],
+  "include": ["**/*.js", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", ".output", ".vinxi"]
 }
