@@ -4,6 +4,36 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@font-face {
+  font-family: 'giest';
+  src: url('/public/fonts/Geist-Regular.woff2') format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'giest';
+  src: url('/fonts/Geist-Medium.woff2') format('woff2');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'giest';
+  src: url('/fonts/Geist-SemiBold.woff2') format('woff2');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'giest';
+  src: url('/fonts//Geist-Bold.woff2') format('woff2');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'giest';
+  src: url('/fonts/Geist-ExtraBold.woff2') format('woff2');
+  font-weight: 800;
+}
+
 :root {
   --background: hsl(0 0% 100%);
   --foreground: hsl(224 71.4% 4.1%);
@@ -60,6 +90,7 @@
 }
 
 @theme inline {
+  --font-sans: 'giest', sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -95,6 +126,6 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
   }
 }
