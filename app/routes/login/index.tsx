@@ -11,8 +11,6 @@ export const Route = createFileRoute('/login/')({
 });
 
 function Login() {
-  console.log(LoginImage);
-
   return (
     <div className='grid min-h-svh lg:grid-cols-2'>
       <div className='flex flex-col gap-4 p-6 md:p-10'>
@@ -30,7 +28,13 @@ function Login() {
           </div>
         </div>
       </div>
-      <Image meta={LoginImage} alt='TechNest' containerClassName='hidden max-h-screen lg:block' sizes='50vw' />
+      <Image
+        meta={LoginImage}
+        alt='TechNest'
+        containerClassName='hidden max-h-screen lg:block'
+        imageClassName='brightness-50'
+        sizes='50vw'
+      />
     </div>
   );
 }
