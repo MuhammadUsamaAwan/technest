@@ -34,6 +34,7 @@ function Login() {
         containerClassName='hidden max-h-screen lg:block'
         imageClassName='brightness-50'
         sizes='50vw'
+        loading='eager'
       />
     </div>
   );

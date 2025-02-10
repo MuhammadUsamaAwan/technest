@@ -16,6 +16,7 @@ type ImageProps = {
   loading?: 'lazy' | 'eager';
   containerClassName?: string;
   imageClassName?: string;
+  placeholder?: string;
 };
 
 export function Image({
@@ -25,9 +26,15 @@ export function Image({
   loading = 'lazy',
   containerClassName,
   imageClassName,
+  placeholder,
 }: ImageProps) {
   return (
-    <div className={containerClassName}>
+    <div
+      className={cn('bg-cover bg-center bg-no-repeat', containerClassName)}
+      style={{
+        backgroundImage: placeholder,
+      }}
+    >
       <picture>
         {Object.entries(meta.sources).map(([type, srcSet]) => (
           <source key={type} type={`image/${type}`} srcSet={srcSet} sizes={sizes} />
