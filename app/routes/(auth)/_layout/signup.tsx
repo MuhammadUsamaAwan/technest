@@ -8,6 +8,7 @@ import { Button } from '~/components/ui/button';
 import { FieldInfo } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
+import { PasswordInput } from '~/components/ui/password-input';
 
 const signUpSchema = z
   .object({
@@ -115,12 +116,11 @@ function RouteComponent() {
             {field => (
               <div className='grid gap-2'>
                 <Label htmlFor={field.name}>Password</Label>
-                <Input
+                <PasswordInput
                   id={field.name}
                   name={field.name}
                   value={field.state.value}
                   onChange={e => field.handleChange(e.target.value)}
-                  type='password'
                   placeholder='Your Password'
                 />
                 <FieldInfo field={field} />
@@ -131,12 +131,11 @@ function RouteComponent() {
             {field => (
               <div className='grid gap-2'>
                 <Label htmlFor={field.name}>Confirm Password</Label>
-                <Input
+                <PasswordInput
                   id={field.name}
                   name={field.name}
                   value={field.state.value}
                   onChange={e => field.handleChange(e.target.value)}
-                  type='password'
                   placeholder='Your Password'
                 />
                 <FieldInfo field={field} />

@@ -34,7 +34,7 @@ function RouteComponent() {
     verifyEmail();
   }, [callbackURL, token]);
 
-  if (error || !token || !callbackURL) {
+  if (error) {
     return <ErrorComponent />;
   }
 
