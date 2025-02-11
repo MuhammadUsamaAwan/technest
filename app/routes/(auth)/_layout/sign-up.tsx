@@ -53,7 +53,7 @@ function RouteComponent() {
       if (error) {
         toast.error(error.message ?? 'Unable to sign up. Please try again later.');
       } else if (data && !data.token && data.user.emailVerified !== true) {
-        navigate({ to: '/verify-email' });
+        navigate({ to: '/verify-email/$userId', params: { userId: data.user.id } });
       }
     },
     validators: {

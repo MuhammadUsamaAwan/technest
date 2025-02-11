@@ -29,7 +29,7 @@ export const auth = betterAuth({
       const html = await render(<EmailVerification username={user.name} emailVerificationLink={url} />);
       transporter.sendMail({
         to: user.email,
-        subject: 'TechNest Verify your email address',
+        subject: 'TechNest - Verify your email address',
         html,
       });
     },

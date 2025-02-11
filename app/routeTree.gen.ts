@@ -15,10 +15,10 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as authLayoutImport } from './routes/(auth)/_layout'
-import { Route as authLayoutVerifyEmailImport } from './routes/(auth)/_layout/verify-email'
 import { Route as authLayoutSignUpImport } from './routes/(auth)/_layout/sign-up'
 import { Route as authLayoutLoginImport } from './routes/(auth)/_layout/login'
 import { Route as authLayoutForgotPasswordImport } from './routes/(auth)/_layout/forgot-password'
+import { Route as authLayoutVerifyEmailUserIdImport } from './routes/(auth)/_layout/verify-email.$userId'
 
 // Create Virtual Routes
 
@@ -42,12 +42,6 @@ const authLayoutRoute = authLayoutImport.update({
   getParentRoute: () => authRoute,
 } as any)
 
-const authLayoutVerifyEmailRoute = authLayoutVerifyEmailImport.update({
-  id: '/verify-email',
-  path: '/verify-email',
-  getParentRoute: () => authLayoutRoute,
-} as any)
-
 const authLayoutSignUpRoute = authLayoutSignUpImport.update({
   id: '/sign-up',
   path: '/sign-up',
@@ -65,6 +59,13 @@ const authLayoutForgotPasswordRoute = authLayoutForgotPasswordImport.update({
   path: '/forgot-password',
   getParentRoute: () => authLayoutRoute,
 } as any)
+
+const authLayoutVerifyEmailUserIdRoute =
+  authLayoutVerifyEmailUserIdImport.update({
+    id: '/verify-email/$userId',
+    path: '/verify-email/$userId',
+    getParentRoute: () => authLayoutRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -112,11 +113,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLayoutSignUpImport
       parentRoute: typeof authLayoutImport
     }
-    '/(auth)/_layout/verify-email': {
-      id: '/(auth)/_layout/verify-email'
-      path: '/verify-email'
-      fullPath: '/verify-email'
-      preLoaderRoute: typeof authLayoutVerifyEmailImport
+    '/(auth)/_layout/verify-email/$userId': {
+      id: '/(auth)/_layout/verify-email/$userId'
+      path: '/verify-email/$userId'
+      fullPath: '/verify-email/$userId'
+      preLoaderRoute: typeof authLayoutVerifyEmailUserIdImport
       parentRoute: typeof authLayoutImport
     }
   }
@@ -128,14 +129,14 @@ interface authLayoutRouteChildren {
   authLayoutForgotPasswordRoute: typeof authLayoutForgotPasswordRoute
   authLayoutLoginRoute: typeof authLayoutLoginRoute
   authLayoutSignUpRoute: typeof authLayoutSignUpRoute
-  authLayoutVerifyEmailRoute: typeof authLayoutVerifyEmailRoute
+  authLayoutVerifyEmailUserIdRoute: typeof authLayoutVerifyEmailUserIdRoute
 }
 
 const authLayoutRouteChildren: authLayoutRouteChildren = {
   authLayoutForgotPasswordRoute: authLayoutForgotPasswordRoute,
   authLayoutLoginRoute: authLayoutLoginRoute,
   authLayoutSignUpRoute: authLayoutSignUpRoute,
-  authLayoutVerifyEmailRoute: authLayoutVerifyEmailRoute,
+  authLayoutVerifyEmailUserIdRoute: authLayoutVerifyEmailUserIdRoute,
 }
 
 const authLayoutRouteWithChildren = authLayoutRoute._addFileChildren(
@@ -157,7 +158,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof authLayoutForgotPasswordRoute
   '/login': typeof authLayoutLoginRoute
   '/sign-up': typeof authLayoutSignUpRoute
-  '/verify-email': typeof authLayoutVerifyEmailRoute
+  '/verify-email/$userId': typeof authLayoutVerifyEmailUserIdRoute
 }
 
 export interface FileRoutesByTo {
@@ -165,7 +166,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof authLayoutForgotPasswordRoute
   '/login': typeof authLayoutLoginRoute
   '/sign-up': typeof authLayoutSignUpRoute
-  '/verify-email': typeof authLayoutVerifyEmailRoute
+  '/verify-email/$userId': typeof authLayoutVerifyEmailUserIdRoute
 }
 
 export interface FileRoutesById {
@@ -176,14 +177,19 @@ export interface FileRoutesById {
   '/(auth)/_layout/forgot-password': typeof authLayoutForgotPasswordRoute
   '/(auth)/_layout/login': typeof authLayoutLoginRoute
   '/(auth)/_layout/sign-up': typeof authLayoutSignUpRoute
-  '/(auth)/_layout/verify-email': typeof authLayoutVerifyEmailRoute
+  '/(auth)/_layout/verify-email/$userId': typeof authLayoutVerifyEmailUserIdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/forgot-password' | '/login' | '/sign-up' | '/verify-email'
+  fullPaths:
+    | '/'
+    | '/forgot-password'
+    | '/login'
+    | '/sign-up'
+    | '/verify-email/$userId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forgot-password' | '/login' | '/sign-up' | '/verify-email'
+  to: '/' | '/forgot-password' | '/login' | '/sign-up' | '/verify-email/$userId'
   id:
     | '__root__'
     | '/'
@@ -192,7 +198,7 @@ export interface FileRouteTypes {
     | '/(auth)/_layout/forgot-password'
     | '/(auth)/_layout/login'
     | '/(auth)/_layout/sign-up'
-    | '/(auth)/_layout/verify-email'
+    | '/(auth)/_layout/verify-email/$userId'
   fileRoutesById: FileRoutesById
 }
 
@@ -236,7 +242,7 @@ export const routeTree = rootRoute
         "/(auth)/_layout/forgot-password",
         "/(auth)/_layout/login",
         "/(auth)/_layout/sign-up",
-        "/(auth)/_layout/verify-email"
+        "/(auth)/_layout/verify-email/$userId"
       ]
     },
     "/(auth)/_layout/forgot-password": {
@@ -251,8 +257,8 @@ export const routeTree = rootRoute
       "filePath": "(auth)/_layout/sign-up.tsx",
       "parent": "/(auth)/_layout"
     },
-    "/(auth)/_layout/verify-email": {
-      "filePath": "(auth)/_layout/verify-email.tsx",
+    "/(auth)/_layout/verify-email/$userId": {
+      "filePath": "(auth)/_layout/verify-email.$userId.tsx",
       "parent": "/(auth)/_layout"
     }
   }

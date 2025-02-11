@@ -1,12 +1,35 @@
+import { useState } from 'react';
+
 import { useForm } from '@tanstack/react-form';
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import { createServerFn } from '@tanstack/start';
+import { and, eq } from 'drizzle-orm';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
+import { db } from '~/db';
+import { usersTable } from '~/db/schema';
 import { authClient } from '~/lib/auth-client';
 import { Button } from '~/components/ui/button';
 import { FieldInfo } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
+
+export const getUserId = createServerFn()
+  .validator(
+    z.object({
+      email: z.string().email(),
+    })
+  )
+  .handler(async ({ data }) => {
+    const [user] = await db
+      .select({
+        id: usersTable.id,
+      })
+      .from(usersTable)
+      .where(and(eq(usersTable.email, data.email), eq(usersTable.emailVerified, false)));
+    return user?.id;
+  });
 
 const loginSchema = z.object({
   email: z.string({ required_error: 'Email is required' }).email({ message: 'Invalid email' }),
@@ -21,13 +44,28 @@ export const Route = createFileRoute('/(auth)/_layout/login')({
 });
 
 function RouteComponent() {
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+
   const form = useForm({
     defaultValues: {
       email: '',
       password: '',
     },
     onSubmit: async ({ value }) => {
-      console.log(value);
+      const { error } = await authClient.signIn.email({
+        email: value.email,
+        password: value.password,
+      });
+      if (error) {
+        if (error.code === 'EMAIL_NOT_VERIFIED') {
+          setIsLoading(true);
+          const userId = await getUserId({ data: { email: value.email } });
+          navigate({ to: '/verify-email/$userId', params: { userId } });
+        } else {
+          toast.error(error.message ?? 'Unable to login, please try again later.');
+        }
+      }
     },
     validators: {
       onChange: loginSchema,
@@ -87,7 +125,7 @@ function RouteComponent() {
           </form.Field>
           <form.Subscribe selector={state => [state.canSubmit, state.isSubmitting]}>
             {([canSubmit, isSubmitting]) => (
-              <Button isLoading={isSubmitting} disabled={!canSubmit} type='submit' className='w-full'>
+              <Button isLoading={isSubmitting || isLoading} disabled={!canSubmit} type='submit' className='w-full'>
                 Login
               </Button>
             )}
