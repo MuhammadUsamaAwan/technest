@@ -6,6 +6,11 @@ const serverEnvSchema = z.object({
   BETTER_AUTH_URL: z.string().min(1),
   GOOGLE_CLIENT_ID: z.string().min(1),
   GOOGLE_CLIENT_SECRET: z.string().min(1),
+  SMTP_HOST: z.string().min(1),
+  SMTP_PORT: z.string().min(1),
+  SMTP_USER: z.string().min(1),
+  SMTP_PASSWORD: z.string().min(1),
+  EMAIL_FROM: z.string().min(1),
 });
 
 type ServerEnv = z.infer<typeof serverEnvSchema>;

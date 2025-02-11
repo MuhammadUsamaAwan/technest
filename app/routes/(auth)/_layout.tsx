@@ -21,16 +21,14 @@ function RouteComponent() {
           </Link>
         </div>
         <div className='flex flex-1 items-center justify-center'>
-          <div className='w-full max-w-xs'>
-            <Outlet />
-          </div>
+          <Outlet />
         </div>
       </div>
       <Image
         meta={LoginImage}
         alt='TechNest'
-        containerClassName='hidden max-h-dvh lg:block'
-        imageClassName='brightness-50'
+        containerClassName='relative hidden lg:block'
+        imageClassName='absolute inset-0 size-full brightness-50'
         sizes='50vw'
         loading='eager'
       />

@@ -1,11 +1,11 @@
 import { Body, Button, Container, Head, Html, Preview, Section, Text } from '@react-email/components';
 
-type EmailConfirmationProps = {
+type EmailVerificationProps = {
   username: string;
-  emailConfirmationLink: string;
+  emailVerificationLink: string;
 };
 
-export default function EmailConfirmation({ username = 'User', emailConfirmationLink = '/' }: EmailConfirmationProps) {
+export default function EmailVerification({ username = 'User', emailVerificationLink = '/' }: EmailVerificationProps) {
   return (
     <Html>
       <Head />
@@ -18,7 +18,7 @@ export default function EmailConfirmation({ username = 'User', emailConfirmation
               Thank you for signing up with TechNest! To complete your registration and verify your email address,
               please click the link below:
             </Text>
-            <Button style={button} href={emailConfirmationLink}>
+            <Button style={button} href={emailVerificationLink}>
               Confirm Email
             </Button>
             <Text style={text}>If you did not request this, please ignore this email.</Text>

@@ -15,6 +15,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
 import { Route as authLayoutImport } from './routes/(auth)/_layout'
+import { Route as authLayoutVerifyEmailImport } from './routes/(auth)/_layout/verify-email'
 import { Route as authLayoutSignUpImport } from './routes/(auth)/_layout/sign-up'
 import { Route as authLayoutLoginImport } from './routes/(auth)/_layout/login'
 import { Route as authLayoutForgotPasswordImport } from './routes/(auth)/_layout/forgot-password'
@@ -39,6 +40,12 @@ const IndexRoute = IndexImport.update({
 const authLayoutRoute = authLayoutImport.update({
   id: '/_layout',
   getParentRoute: () => authRoute,
+} as any)
+
+const authLayoutVerifyEmailRoute = authLayoutVerifyEmailImport.update({
+  id: '/verify-email',
+  path: '/verify-email',
+  getParentRoute: () => authLayoutRoute,
 } as any)
 
 const authLayoutSignUpRoute = authLayoutSignUpImport.update({
@@ -105,6 +112,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLayoutSignUpImport
       parentRoute: typeof authLayoutImport
     }
+    '/(auth)/_layout/verify-email': {
+      id: '/(auth)/_layout/verify-email'
+      path: '/verify-email'
+      fullPath: '/verify-email'
+      preLoaderRoute: typeof authLayoutVerifyEmailImport
+      parentRoute: typeof authLayoutImport
+    }
   }
 }
 
@@ -114,12 +128,14 @@ interface authLayoutRouteChildren {
   authLayoutForgotPasswordRoute: typeof authLayoutForgotPasswordRoute
   authLayoutLoginRoute: typeof authLayoutLoginRoute
   authLayoutSignUpRoute: typeof authLayoutSignUpRoute
+  authLayoutVerifyEmailRoute: typeof authLayoutVerifyEmailRoute
 }
 
 const authLayoutRouteChildren: authLayoutRouteChildren = {
   authLayoutForgotPasswordRoute: authLayoutForgotPasswordRoute,
   authLayoutLoginRoute: authLayoutLoginRoute,
   authLayoutSignUpRoute: authLayoutSignUpRoute,
+  authLayoutVerifyEmailRoute: authLayoutVerifyEmailRoute,
 }
 
 const authLayoutRouteWithChildren = authLayoutRoute._addFileChildren(
@@ -141,6 +157,7 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof authLayoutForgotPasswordRoute
   '/login': typeof authLayoutLoginRoute
   '/sign-up': typeof authLayoutSignUpRoute
+  '/verify-email': typeof authLayoutVerifyEmailRoute
 }
 
 export interface FileRoutesByTo {
@@ -148,6 +165,7 @@ export interface FileRoutesByTo {
   '/forgot-password': typeof authLayoutForgotPasswordRoute
   '/login': typeof authLayoutLoginRoute
   '/sign-up': typeof authLayoutSignUpRoute
+  '/verify-email': typeof authLayoutVerifyEmailRoute
 }
 
 export interface FileRoutesById {
@@ -158,13 +176,14 @@ export interface FileRoutesById {
   '/(auth)/_layout/forgot-password': typeof authLayoutForgotPasswordRoute
   '/(auth)/_layout/login': typeof authLayoutLoginRoute
   '/(auth)/_layout/sign-up': typeof authLayoutSignUpRoute
+  '/(auth)/_layout/verify-email': typeof authLayoutVerifyEmailRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/forgot-password' | '/login' | '/sign-up'
+  fullPaths: '/' | '/forgot-password' | '/login' | '/sign-up' | '/verify-email'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forgot-password' | '/login' | '/sign-up'
+  to: '/' | '/forgot-password' | '/login' | '/sign-up' | '/verify-email'
   id:
     | '__root__'
     | '/'
@@ -173,6 +192,7 @@ export interface FileRouteTypes {
     | '/(auth)/_layout/forgot-password'
     | '/(auth)/_layout/login'
     | '/(auth)/_layout/sign-up'
+    | '/(auth)/_layout/verify-email'
   fileRoutesById: FileRoutesById
 }
 
@@ -215,7 +235,8 @@ export const routeTree = rootRoute
       "children": [
         "/(auth)/_layout/forgot-password",
         "/(auth)/_layout/login",
-        "/(auth)/_layout/sign-up"
+        "/(auth)/_layout/sign-up",
+        "/(auth)/_layout/verify-email"
       ]
     },
     "/(auth)/_layout/forgot-password": {
@@ -228,6 +249,10 @@ export const routeTree = rootRoute
     },
     "/(auth)/_layout/sign-up": {
       "filePath": "(auth)/_layout/sign-up.tsx",
+      "parent": "/(auth)/_layout"
+    },
+    "/(auth)/_layout/verify-email": {
+      "filePath": "(auth)/_layout/verify-email.tsx",
       "parent": "/(auth)/_layout"
     }
   }

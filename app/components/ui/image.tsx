@@ -40,7 +40,7 @@ export function Image({
           <source key={type} type={`image/${type}`} srcSet={srcSet} sizes={sizes} />
         ))}
         <img
-          className={cn('h-full w-full object-cover object-center', imageClassName)}
+          className={cn('size-full object-cover object-center', imageClassName)}
           src={meta.img.src}
           alt={alt}
           loading={loading}
