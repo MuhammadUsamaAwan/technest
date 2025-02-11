@@ -16,11 +16,11 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       {
-        title: 'TechNest - A place for all your tech needs',
+        title: 'TechNest - High-Quality Computer Parts',
       },
       {
         name: 'description',
-        content: 'TechNest is a place for all your tech needs. You can find and buy all the latest tech gadgets here.',
+        content: 'Buy High-Quality Computer Parts Online - Best Deals & Fast Shipping',
       },
     ],
     links: [

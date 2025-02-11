@@ -12,7 +12,9 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexImport } from './routes/index'
-import { Route as LoginIndexImport } from './routes/login/index'
+import { Route as authSignUpIndexImport } from './routes/(auth)/sign-up/index'
+import { Route as authLoginIndexImport } from './routes/(auth)/login/index'
+import { Route as authForgotPasswordIndexImport } from './routes/(auth)/forgot-password/index'
 
 // Create/Update Routes
 
@@ -22,9 +24,21 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const LoginIndexRoute = LoginIndexImport.update({
-  id: '/login/',
+const authSignUpIndexRoute = authSignUpIndexImport.update({
+  id: '/(auth)/sign-up/',
+  path: '/sign-up/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const authLoginIndexRoute = authLoginIndexImport.update({
+  id: '/(auth)/login/',
   path: '/login/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const authForgotPasswordIndexRoute = authForgotPasswordIndexImport.update({
+  id: '/(auth)/forgot-password/',
+  path: '/forgot-password/',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -39,11 +53,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
-    '/login/': {
-      id: '/login/'
+    '/(auth)/forgot-password/': {
+      id: '/(auth)/forgot-password/'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof authForgotPasswordIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/(auth)/login/': {
+      id: '/(auth)/login/'
       path: '/login'
       fullPath: '/login'
-      preLoaderRoute: typeof LoginIndexImport
+      preLoaderRoute: typeof authLoginIndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/(auth)/sign-up/': {
+      id: '/(auth)/sign-up/'
+      path: '/sign-up'
+      fullPath: '/sign-up'
+      preLoaderRoute: typeof authSignUpIndexImport
       parentRoute: typeof rootRoute
     }
   }
@@ -53,37 +81,52 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/login': typeof LoginIndexRoute
+  '/forgot-password': typeof authForgotPasswordIndexRoute
+  '/login': typeof authLoginIndexRoute
+  '/sign-up': typeof authSignUpIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/login': typeof LoginIndexRoute
+  '/forgot-password': typeof authForgotPasswordIndexRoute
+  '/login': typeof authLoginIndexRoute
+  '/sign-up': typeof authSignUpIndexRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
-  '/login/': typeof LoginIndexRoute
+  '/(auth)/forgot-password/': typeof authForgotPasswordIndexRoute
+  '/(auth)/login/': typeof authLoginIndexRoute
+  '/(auth)/sign-up/': typeof authSignUpIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login'
+  fullPaths: '/' | '/forgot-password' | '/login' | '/sign-up'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login'
-  id: '__root__' | '/' | '/login/'
+  to: '/' | '/forgot-password' | '/login' | '/sign-up'
+  id:
+    | '__root__'
+    | '/'
+    | '/(auth)/forgot-password/'
+    | '/(auth)/login/'
+    | '/(auth)/sign-up/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  LoginIndexRoute: typeof LoginIndexRoute
+  authForgotPasswordIndexRoute: typeof authForgotPasswordIndexRoute
+  authLoginIndexRoute: typeof authLoginIndexRoute
+  authSignUpIndexRoute: typeof authSignUpIndexRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  LoginIndexRoute: LoginIndexRoute,
+  authForgotPasswordIndexRoute: authForgotPasswordIndexRoute,
+  authLoginIndexRoute: authLoginIndexRoute,
+  authSignUpIndexRoute: authSignUpIndexRoute,
 }
 
 export const routeTree = rootRoute
@@ -97,14 +140,22 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/login/"
+        "/(auth)/forgot-password/",
+        "/(auth)/login/",
+        "/(auth)/sign-up/"
       ]
     },
     "/": {
       "filePath": "index.tsx"
     },
-    "/login/": {
-      "filePath": "login/index.tsx"
+    "/(auth)/forgot-password/": {
+      "filePath": "(auth)/forgot-password/index.tsx"
+    },
+    "/(auth)/login/": {
+      "filePath": "(auth)/login/index.tsx"
+    },
+    "/(auth)/sign-up/": {
+      "filePath": "(auth)/sign-up/index.tsx"
     }
   }
 }
