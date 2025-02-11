@@ -26,7 +26,9 @@ export const auth = betterAuth({
   },
   emailVerification: {
     sendVerificationEmail: async ({ user, url }) => {
-      const html = await render(<EmailVerification username={user.name} emailVerificationLink={url} />);
+      const _url = new URL(url);
+      _url.searchParams.set('callbackURL', '/verify-email');
+      const html = await render(<EmailVerification username={user.name} emailVerificationLink={_url.toString()} />);
       transporter.sendMail({
         to: user.email,
         subject: 'TechNest - Verify your email address',

@@ -9,7 +9,7 @@ import { FieldInfo } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 
-export const Route = createFileRoute('/(auth)/_layout/sign-up')({
+export const Route = createFileRoute('/(auth)/_layout/signup')({
   component: RouteComponent,
 });
 
@@ -53,7 +53,10 @@ function RouteComponent() {
       if (error) {
         toast.error(error.message ?? 'Unable to sign up. Please try again later.');
       } else if (data && !data.token && data.user.emailVerified !== true) {
-        navigate({ to: '/verify-email/$userId', params: { userId: data.user.id } });
+        navigate({
+          to: '/check-email/$userId',
+          params: { userId: data.user.id },
+        });
       }
     },
     validators: {

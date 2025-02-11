@@ -56,12 +56,13 @@ function RouteComponent() {
       const { error } = await authClient.signIn.email({
         email: value.email,
         password: value.password,
+        callbackURL: '/',
       });
       if (error) {
         if (error.code === 'EMAIL_NOT_VERIFIED') {
           setIsLoading(true);
           const userId = await getUserId({ data: { email: value.email } });
-          navigate({ to: '/verify-email/$userId', params: { userId } });
+          navigate({ to: '/check-email/$userId', params: { userId } });
         } else {
           toast.error(error.message ?? 'Unable to login, please try again later.');
         }
@@ -167,7 +168,7 @@ function RouteComponent() {
         </div>
         <div className='text-center text-sm'>
           Don&apos;t have an account?{' '}
-          <Link to='/sign-up' className='underline underline-offset-4'>
+          <Link to='/signup' className='underline underline-offset-4'>
             Sign up
           </Link>
         </div>

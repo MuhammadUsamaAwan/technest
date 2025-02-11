@@ -28,7 +28,7 @@ export const getEmail = createServerFn()
     return user?.email as string | undefined;
   });
 
-export const Route = createFileRoute('/(auth)/_layout/verify-email/$userId')({
+export const Route = createFileRoute('/(auth)/_layout/check-email/$userId')({
   component: RouteComponent,
   loader: async ({ params: { userId } }) => {
     const email = await getEmail({ data: { userId } });
@@ -61,10 +61,7 @@ function RouteComponent() {
     setIsDisabled(true);
     setIsLoading(true);
     await authClient
-      .sendVerificationEmail({
-        email,
-        callbackURL: '/',
-      })
+      .sendVerificationEmail({ email })
       .then(() => toast.success('Verification email sent successfully'))
       .catch(() => toast.error('Failed to send verification email, please try again later'))
       .finally(() => setIsLoading(false));
