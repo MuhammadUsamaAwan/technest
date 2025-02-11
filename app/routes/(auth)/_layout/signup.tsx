@@ -9,11 +9,7 @@ import { FieldInfo } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 
-export const Route = createFileRoute('/(auth)/_layout/signup')({
-  component: RouteComponent,
-});
-
-const loginSchema = z
+const signUpSchema = z
   .object({
     name: z
       .string({ required_error: 'Name is required' })
@@ -34,6 +30,10 @@ const loginSchema = z
     path: ['confirmPassword'],
   });
 
+export const Route = createFileRoute('/(auth)/_layout/signup')({
+  component: RouteComponent,
+});
+
 function RouteComponent() {
   const navigate = useNavigate();
 
@@ -51,7 +51,7 @@ function RouteComponent() {
         name: value.name,
       });
       if (error) {
-        toast.error(error.message ?? 'Unable to sign up. Please try again later.');
+        toast.error(error.message ?? 'Unable to sign up. Please try again later');
       } else if (data && !data.token && data.user.emailVerified !== true) {
         navigate({
           to: '/check-email/$userId',
@@ -60,7 +60,7 @@ function RouteComponent() {
       }
     },
     validators: {
-      onChange: loginSchema,
+      onChange: signUpSchema,
     },
   });
 

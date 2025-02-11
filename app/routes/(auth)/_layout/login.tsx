@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { useForm } from '@tanstack/react-form';
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { createServerFn } from '@tanstack/start';
@@ -45,7 +43,6 @@ export const Route = createFileRoute('/(auth)/_layout/login')({
 
 function RouteComponent() {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm({
     defaultValues: {
@@ -60,11 +57,10 @@ function RouteComponent() {
       });
       if (error) {
         if (error.code === 'EMAIL_NOT_VERIFIED') {
-          setIsLoading(true);
           const userId = await getUserId({ data: { email: value.email } });
           navigate({ to: '/check-email/$userId', params: { userId } });
         } else {
-          toast.error(error.message ?? 'Unable to login, please try again later.');
+          toast.error(error.message ?? 'Unable to login, please try again later');
         }
       }
     },
@@ -126,7 +122,7 @@ function RouteComponent() {
           </form.Field>
           <form.Subscribe selector={state => [state.canSubmit, state.isSubmitting]}>
             {([canSubmit, isSubmitting]) => (
-              <Button isLoading={isSubmitting || isLoading} disabled={!canSubmit} type='submit' className='w-full'>
+              <Button isLoading={isSubmitting} disabled={!canSubmit} type='submit' className='w-full'>
                 Login
               </Button>
             )}

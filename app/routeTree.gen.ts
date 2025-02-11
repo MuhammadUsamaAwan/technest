@@ -17,8 +17,11 @@ import { Route as IndexImport } from './routes/index'
 import { Route as authLayoutImport } from './routes/(auth)/_layout'
 import { Route as authLayoutVerifyEmailImport } from './routes/(auth)/_layout/verify-email'
 import { Route as authLayoutSignupImport } from './routes/(auth)/_layout/signup'
+import { Route as authLayoutResetPasswordSuccessImport } from './routes/(auth)/_layout/reset-password-success'
+import { Route as authLayoutResetPasswordImport } from './routes/(auth)/_layout/reset-password'
 import { Route as authLayoutLoginImport } from './routes/(auth)/_layout/login'
-import { Route as authLayoutForgotPasswordImport } from './routes/(auth)/_layout/forgot-password'
+import { Route as authLayoutForgotPasswordIndexImport } from './routes/(auth)/_layout/forgot-password.index'
+import { Route as authLayoutForgotPasswordEmailImport } from './routes/(auth)/_layout/forgot-password.$email'
 import { Route as authLayoutCheckEmailUserIdImport } from './routes/(auth)/_layout/check-email.$userId'
 
 // Create Virtual Routes
@@ -55,17 +58,38 @@ const authLayoutSignupRoute = authLayoutSignupImport.update({
   getParentRoute: () => authLayoutRoute,
 } as any)
 
+const authLayoutResetPasswordSuccessRoute =
+  authLayoutResetPasswordSuccessImport.update({
+    id: '/reset-password-success',
+    path: '/reset-password-success',
+    getParentRoute: () => authLayoutRoute,
+  } as any)
+
+const authLayoutResetPasswordRoute = authLayoutResetPasswordImport.update({
+  id: '/reset-password',
+  path: '/reset-password',
+  getParentRoute: () => authLayoutRoute,
+} as any)
+
 const authLayoutLoginRoute = authLayoutLoginImport.update({
   id: '/login',
   path: '/login',
   getParentRoute: () => authLayoutRoute,
 } as any)
 
-const authLayoutForgotPasswordRoute = authLayoutForgotPasswordImport.update({
-  id: '/forgot-password',
-  path: '/forgot-password',
-  getParentRoute: () => authLayoutRoute,
-} as any)
+const authLayoutForgotPasswordIndexRoute =
+  authLayoutForgotPasswordIndexImport.update({
+    id: '/forgot-password/',
+    path: '/forgot-password/',
+    getParentRoute: () => authLayoutRoute,
+  } as any)
+
+const authLayoutForgotPasswordEmailRoute =
+  authLayoutForgotPasswordEmailImport.update({
+    id: '/forgot-password/$email',
+    path: '/forgot-password/$email',
+    getParentRoute: () => authLayoutRoute,
+  } as any)
 
 const authLayoutCheckEmailUserIdRoute = authLayoutCheckEmailUserIdImport.update(
   {
@@ -100,18 +124,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLayoutImport
       parentRoute: typeof authRoute
     }
-    '/(auth)/_layout/forgot-password': {
-      id: '/(auth)/_layout/forgot-password'
-      path: '/forgot-password'
-      fullPath: '/forgot-password'
-      preLoaderRoute: typeof authLayoutForgotPasswordImport
-      parentRoute: typeof authLayoutImport
-    }
     '/(auth)/_layout/login': {
       id: '/(auth)/_layout/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof authLayoutLoginImport
+      parentRoute: typeof authLayoutImport
+    }
+    '/(auth)/_layout/reset-password': {
+      id: '/(auth)/_layout/reset-password'
+      path: '/reset-password'
+      fullPath: '/reset-password'
+      preLoaderRoute: typeof authLayoutResetPasswordImport
+      parentRoute: typeof authLayoutImport
+    }
+    '/(auth)/_layout/reset-password-success': {
+      id: '/(auth)/_layout/reset-password-success'
+      path: '/reset-password-success'
+      fullPath: '/reset-password-success'
+      preLoaderRoute: typeof authLayoutResetPasswordSuccessImport
       parentRoute: typeof authLayoutImport
     }
     '/(auth)/_layout/signup': {
@@ -135,25 +166,45 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLayoutCheckEmailUserIdImport
       parentRoute: typeof authLayoutImport
     }
+    '/(auth)/_layout/forgot-password/$email': {
+      id: '/(auth)/_layout/forgot-password/$email'
+      path: '/forgot-password/$email'
+      fullPath: '/forgot-password/$email'
+      preLoaderRoute: typeof authLayoutForgotPasswordEmailImport
+      parentRoute: typeof authLayoutImport
+    }
+    '/(auth)/_layout/forgot-password/': {
+      id: '/(auth)/_layout/forgot-password/'
+      path: '/forgot-password'
+      fullPath: '/forgot-password'
+      preLoaderRoute: typeof authLayoutForgotPasswordIndexImport
+      parentRoute: typeof authLayoutImport
+    }
   }
 }
 
 // Create and export the route tree
 
 interface authLayoutRouteChildren {
-  authLayoutForgotPasswordRoute: typeof authLayoutForgotPasswordRoute
   authLayoutLoginRoute: typeof authLayoutLoginRoute
+  authLayoutResetPasswordRoute: typeof authLayoutResetPasswordRoute
+  authLayoutResetPasswordSuccessRoute: typeof authLayoutResetPasswordSuccessRoute
   authLayoutSignupRoute: typeof authLayoutSignupRoute
   authLayoutVerifyEmailRoute: typeof authLayoutVerifyEmailRoute
   authLayoutCheckEmailUserIdRoute: typeof authLayoutCheckEmailUserIdRoute
+  authLayoutForgotPasswordEmailRoute: typeof authLayoutForgotPasswordEmailRoute
+  authLayoutForgotPasswordIndexRoute: typeof authLayoutForgotPasswordIndexRoute
 }
 
 const authLayoutRouteChildren: authLayoutRouteChildren = {
-  authLayoutForgotPasswordRoute: authLayoutForgotPasswordRoute,
   authLayoutLoginRoute: authLayoutLoginRoute,
+  authLayoutResetPasswordRoute: authLayoutResetPasswordRoute,
+  authLayoutResetPasswordSuccessRoute: authLayoutResetPasswordSuccessRoute,
   authLayoutSignupRoute: authLayoutSignupRoute,
   authLayoutVerifyEmailRoute: authLayoutVerifyEmailRoute,
   authLayoutCheckEmailUserIdRoute: authLayoutCheckEmailUserIdRoute,
+  authLayoutForgotPasswordEmailRoute: authLayoutForgotPasswordEmailRoute,
+  authLayoutForgotPasswordIndexRoute: authLayoutForgotPasswordIndexRoute,
 }
 
 const authLayoutRouteWithChildren = authLayoutRoute._addFileChildren(
@@ -172,20 +223,26 @@ const authRouteWithChildren = authRoute._addFileChildren(authRouteChildren)
 
 export interface FileRoutesByFullPath {
   '/': typeof authLayoutRouteWithChildren
-  '/forgot-password': typeof authLayoutForgotPasswordRoute
   '/login': typeof authLayoutLoginRoute
+  '/reset-password': typeof authLayoutResetPasswordRoute
+  '/reset-password-success': typeof authLayoutResetPasswordSuccessRoute
   '/signup': typeof authLayoutSignupRoute
   '/verify-email': typeof authLayoutVerifyEmailRoute
   '/check-email/$userId': typeof authLayoutCheckEmailUserIdRoute
+  '/forgot-password/$email': typeof authLayoutForgotPasswordEmailRoute
+  '/forgot-password': typeof authLayoutForgotPasswordIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof authLayoutRouteWithChildren
-  '/forgot-password': typeof authLayoutForgotPasswordRoute
   '/login': typeof authLayoutLoginRoute
+  '/reset-password': typeof authLayoutResetPasswordRoute
+  '/reset-password-success': typeof authLayoutResetPasswordSuccessRoute
   '/signup': typeof authLayoutSignupRoute
   '/verify-email': typeof authLayoutVerifyEmailRoute
   '/check-email/$userId': typeof authLayoutCheckEmailUserIdRoute
+  '/forgot-password/$email': typeof authLayoutForgotPasswordEmailRoute
+  '/forgot-password': typeof authLayoutForgotPasswordIndexRoute
 }
 
 export interface FileRoutesById {
@@ -193,40 +250,52 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/(auth)': typeof authRouteWithChildren
   '/(auth)/_layout': typeof authLayoutRouteWithChildren
-  '/(auth)/_layout/forgot-password': typeof authLayoutForgotPasswordRoute
   '/(auth)/_layout/login': typeof authLayoutLoginRoute
+  '/(auth)/_layout/reset-password': typeof authLayoutResetPasswordRoute
+  '/(auth)/_layout/reset-password-success': typeof authLayoutResetPasswordSuccessRoute
   '/(auth)/_layout/signup': typeof authLayoutSignupRoute
   '/(auth)/_layout/verify-email': typeof authLayoutVerifyEmailRoute
   '/(auth)/_layout/check-email/$userId': typeof authLayoutCheckEmailUserIdRoute
+  '/(auth)/_layout/forgot-password/$email': typeof authLayoutForgotPasswordEmailRoute
+  '/(auth)/_layout/forgot-password/': typeof authLayoutForgotPasswordIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/forgot-password'
     | '/login'
+    | '/reset-password'
+    | '/reset-password-success'
     | '/signup'
     | '/verify-email'
     | '/check-email/$userId'
+    | '/forgot-password/$email'
+    | '/forgot-password'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/forgot-password'
     | '/login'
+    | '/reset-password'
+    | '/reset-password-success'
     | '/signup'
     | '/verify-email'
     | '/check-email/$userId'
+    | '/forgot-password/$email'
+    | '/forgot-password'
   id:
     | '__root__'
     | '/'
     | '/(auth)'
     | '/(auth)/_layout'
-    | '/(auth)/_layout/forgot-password'
     | '/(auth)/_layout/login'
+    | '/(auth)/_layout/reset-password'
+    | '/(auth)/_layout/reset-password-success'
     | '/(auth)/_layout/signup'
     | '/(auth)/_layout/verify-email'
     | '/(auth)/_layout/check-email/$userId'
+    | '/(auth)/_layout/forgot-password/$email'
+    | '/(auth)/_layout/forgot-password/'
   fileRoutesById: FileRoutesById
 }
 
@@ -267,19 +336,26 @@ export const routeTree = rootRoute
       "filePath": "(auth)/_layout.tsx",
       "parent": "/(auth)",
       "children": [
-        "/(auth)/_layout/forgot-password",
         "/(auth)/_layout/login",
+        "/(auth)/_layout/reset-password",
+        "/(auth)/_layout/reset-password-success",
         "/(auth)/_layout/signup",
         "/(auth)/_layout/verify-email",
-        "/(auth)/_layout/check-email/$userId"
+        "/(auth)/_layout/check-email/$userId",
+        "/(auth)/_layout/forgot-password/$email",
+        "/(auth)/_layout/forgot-password/"
       ]
-    },
-    "/(auth)/_layout/forgot-password": {
-      "filePath": "(auth)/_layout/forgot-password.tsx",
-      "parent": "/(auth)/_layout"
     },
     "/(auth)/_layout/login": {
       "filePath": "(auth)/_layout/login.tsx",
+      "parent": "/(auth)/_layout"
+    },
+    "/(auth)/_layout/reset-password": {
+      "filePath": "(auth)/_layout/reset-password.tsx",
+      "parent": "/(auth)/_layout"
+    },
+    "/(auth)/_layout/reset-password-success": {
+      "filePath": "(auth)/_layout/reset-password-success.tsx",
       "parent": "/(auth)/_layout"
     },
     "/(auth)/_layout/signup": {
@@ -292,6 +368,14 @@ export const routeTree = rootRoute
     },
     "/(auth)/_layout/check-email/$userId": {
       "filePath": "(auth)/_layout/check-email.$userId.tsx",
+      "parent": "/(auth)/_layout"
+    },
+    "/(auth)/_layout/forgot-password/$email": {
+      "filePath": "(auth)/_layout/forgot-password.$email.tsx",
+      "parent": "/(auth)/_layout"
+    },
+    "/(auth)/_layout/forgot-password/": {
+      "filePath": "(auth)/_layout/forgot-password.index.tsx",
       "parent": "/(auth)/_layout"
     }
   }

@@ -16,7 +16,6 @@ const verifyEmailSearchSchema = z.object({
 export const Route = createFileRoute('/(auth)/_layout/verify-email')({
   component: RouteComponent,
   validateSearch: search => verifyEmailSearchSchema.parse(search),
-  errorComponent: ErrorComponent,
 });
 
 function RouteComponent() {
@@ -35,7 +34,7 @@ function RouteComponent() {
     verifyEmail();
   }, [callbackURL, token]);
 
-  if (error) {
+  if (error || !token || !callbackURL) {
     return <ErrorComponent />;
   }
 
@@ -57,7 +56,7 @@ function ErrorComponent() {
           Login
         </Link>
         <Link to='/' className={buttonVariants({ variant: 'outline' })}>
-          Back to Website
+          Back to Home
         </Link>
       </div>
     </div>
@@ -79,7 +78,7 @@ function SuccessComponent() {
           Login
         </Link>
         <Link to='/' className={buttonVariants({ variant: 'outline' })}>
-          Back to Website
+          Back to Home
         </Link>
       </div>
     </div>

@@ -20,6 +20,7 @@ const config = {
     '^~/config/(.*)$',
     '^~/db/(.*)$|^~/db$',
     '^~/lib/(.*)$',
+    '^~/emails/(.*)$',
     '^~/components/(.*)$',
     '^~/routes/(.*)$',
     '^~/assets/(.*)$',

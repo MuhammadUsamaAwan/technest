@@ -1,27 +1,27 @@
 import { Body, Button, Container, Head, Html, Preview, Section, Text } from '@react-email/components';
 
-type EmailVerificationProps = {
+type ForgotPasswordEmailProps = {
   username: string;
-  emailVerificationLink: string;
+  url: string;
 };
 
-export default function EmailVerification({ username = 'User', emailVerificationLink = '/' }: EmailVerificationProps) {
+export default function ForgotPasswordEmail({ username = 'User', url = '/' }: ForgotPasswordEmailProps) {
   return (
     <Html>
       <Head />
-      <Preview>TechNest confirm your email</Preview>
+      <Preview>TechNest Password Reset</Preview>
       <Body style={main}>
         <Container style={container}>
           <Section>
             <Text style={text}>Hi {username},</Text>
             <Text style={text}>
-              Thank you for signing up with TechNest! To complete your registration and verify your email address,
-              please click the link below:
+              We received a request to reset your password for your TechNest account. Click the link below to reset your
+              password:
             </Text>
-            <Button style={button} href={emailVerificationLink}>
-              Confirm Email
+            <Button style={button} href={url}>
+              Reset Password
             </Button>
-            <Text style={text}>If you did not request this, please ignore this email.</Text>
+            <Text style={text}>If you did not request a password reset, please ignore this email.</Text>
             <Text style={text}>
               If you have any questions, feel free to contact our support team at support@technest.com.
             </Text>
