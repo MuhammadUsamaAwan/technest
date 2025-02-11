@@ -14,11 +14,13 @@
     "db:studio": "drizzle-kit studio",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "shadcn:add": "pnpm dlx shadcn@canary add"
+    "shadcn:add": "pnpm dlx shadcn@canary add",
+    "email:dev": "PORT=3001 email dev --dir app/emails"
   },
   "dependencies": {
     "@radix-ui/react-label": "^2.1.2",
     "@radix-ui/react-slot": "^1.1.2",
+    "@react-email/components": "^0.0.33",
     "@tailwindcss/vite": "^4.0.5",
     "@tanstack/react-form": "^0.41.3",
     "@tanstack/react-router": "^1.102.1",
@@ -52,6 +54,7 @@
     "globals": "^15.14.0",
     "prettier": "^3.5.0",
     "prettier-plugin-tailwindcss": "^0.6.11",
+    "react-email": "^3.0.7",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.23.0",
     "vite-imagetools": "^7.0.5",
