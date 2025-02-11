@@ -1,12 +1,10 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
+import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
 import { CpuIcon } from 'lucide-react';
 
 import { Image } from '~/components/ui/image';
 import LoginImage from '~/assets/images/login.jpg?w=786;1080;1400;2160&format=avif&as=picture';
 
-import { LoginForm } from './-components/login-form';
-
-export const Route = createFileRoute('/(auth)/login/')({
+export const Route = createFileRoute('/(auth)/_layout')({
   component: RouteComponent,
 });
 
@@ -24,7 +22,7 @@ function RouteComponent() {
         </div>
         <div className='flex flex-1 items-center justify-center'>
           <div className='w-full max-w-xs'>
-            <LoginForm />
+            <Outlet />
           </div>
         </div>
       </div>
