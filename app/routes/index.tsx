@@ -5,10 +5,11 @@ import { Button, buttonVariants } from '~/components/ui/button';
 
 export const Route = createFileRoute('/')({
   component: RouteComponent,
+  loader: ({ context }) => context.session,
 });
 
 function RouteComponent() {
-  const { data: session } = authClient.useSession();
+  const session = Route.useLoaderData();
 
   return (
     <div className='m-20'>

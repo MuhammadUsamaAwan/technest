@@ -1,4 +1,4 @@
-import { createFileRoute, Link, Outlet } from '@tanstack/react-router';
+import { createFileRoute, Link, Outlet, redirect } from '@tanstack/react-router';
 import { CpuIcon } from 'lucide-react';
 
 import { Image } from '~/components/ui/image';
@@ -6,6 +6,11 @@ import LoginImage from '~/assets/images/login.jpg?w=786;1080;1400;2160&format=av
 
 export const Route = createFileRoute('/(auth)/_layout')({
   component: RouteComponent,
+  beforeLoad: ({ context }) => {
+    if (context.session) {
+      throw redirect({ to: '/' });
+    }
+  },
 });
 
 function RouteComponent() {
