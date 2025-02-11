@@ -1,5 +1,6 @@
 import { useForm } from '@tanstack/react-form';
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { authClient } from '~/lib/auth-client';
@@ -50,10 +51,8 @@ function RouteComponent() {
         name: value.name,
       });
       if (error) {
-        alert(error.message);
-        return;
-      }
-      if (data && !data.token && data.user.emailVerified !== true) {
+        toast.error(error.message ?? 'Unable to sign up. Please try again later.');
+      } else if (data && !data.token && data.user.emailVerified !== true) {
         navigate({ to: '/verify-email' });
       }
     },
