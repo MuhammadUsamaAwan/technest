@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { Meta, Scripts } from '@tanstack/start';
+import { NotFound } from '~/layouts/not-found';
 
 import globalCss from '~/styles/global.css?url';
 
@@ -33,6 +34,7 @@ export const Route = createRootRoute({
     ],
   }),
   component: RootComponent,
+  notFoundComponent: NotFound,
 });
 
 function RootComponent() {

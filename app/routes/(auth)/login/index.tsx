@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { CpuIcon } from 'lucide-react';
 
-import { Image } from '~/components/image';
+import { Image } from '~/components/ui/image';
 import LoginImage from '~/assets/images/login.jpg?w=786;1080;1400;2160&format=avif&as=picture';
 
 import { LoginForm } from './-components/login-form';
@@ -31,7 +31,7 @@ function RouteComponent() {
       <Image
         meta={LoginImage}
         alt='TechNest'
-        containerClassName='hidden max-h-screen lg:block'
+        containerClassName='hidden max-h-dvh lg:block'
         imageClassName='brightness-50'
         sizes='50vw'
         loading='eager'

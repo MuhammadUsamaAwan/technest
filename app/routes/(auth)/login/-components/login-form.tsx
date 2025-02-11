@@ -2,6 +2,7 @@ import { useForm } from '@tanstack/react-form';
 import { Link } from '@tanstack/react-router';
 import { z } from 'zod';
 
+import { authClient } from '~/lib/auth-client';
 import { Button } from '~/components/ui/button';
 import { FieldInfo } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
@@ -89,7 +90,17 @@ export function LoginForm() {
         <div className='after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t'>
           <span className='bg-background text-muted-foreground relative z-10 px-2'>Or continue with</span>
         </div>
-        <Button variant='outline' className='w-full'>
+        <Button
+          type='button'
+          onClick={async () => {
+            await authClient.signIn.social({
+              provider: 'google',
+              callbackURL: '/',
+            });
+          }}
+          variant='outline'
+          className='w-full'
+        >
           <svg xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='xMidYMid' viewBox='0 0 256 262'>
             <path
               fill='#4285F4'
