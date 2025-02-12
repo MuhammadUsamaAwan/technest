@@ -1,7 +1,7 @@
-import { NavMain } from '~/layouts/nav-main';
-import { NavUser } from '~/layouts/nav-user';
 import { type User } from 'better-auth';
 
+import { NavMain } from '~/layouts/nav-main';
+import { NavUser } from '~/layouts/nav-user';
 import { Logo } from '~/components/logo';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from '~/components/ui/sidebar';
 

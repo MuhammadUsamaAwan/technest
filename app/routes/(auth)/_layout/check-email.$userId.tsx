@@ -1,46 +1,26 @@
 import { useEffect, useState } from 'react';
 
 import { createFileRoute, Link, redirect } from '@tanstack/react-router';
-import { createServerFn } from '@tanstack/start';
-import { and, eq } from 'drizzle-orm';
 import { MailIcon } from 'lucide-react';
 import { toast } from 'sonner';
-import { z } from 'zod';
 
-import { db } from '~/db';
-import { usersTable } from '~/db/schema';
 import { authClient } from '~/lib/auth-client';
+import { getUserById } from '~/server/auth';
 import { Button, buttonVariants } from '~/components/ui/button';
-
-export const getEmail = createServerFn()
-  .validator(
-    z.object({
-      userId: z.string(),
-    })
-  )
-  .handler(async ({ data }) => {
-    const [user] = await db
-      .select({
-        email: usersTable.email,
-      })
-      .from(usersTable)
-      .where(and(eq(usersTable.id, data.userId), eq(usersTable.emailVerified, false)));
-    return user?.email as string | undefined;
-  });
 
 export const Route = createFileRoute('/(auth)/_layout/check-email/$userId')({
   component: RouteComponent,
   loader: async ({ params: { userId } }) => {
-    const email = await getEmail({ data: { userId } });
-    if (!email) {
+    const user = await getUserById({ data: { userId } });
+    if (!user) {
       throw redirect({ to: '/login' });
     }
-    return email;
+    return user;
   },
 });
 
 function RouteComponent() {
-  const email = Route.useLoaderData();
+  const { email } = Route.useLoaderData();
   const [timer, setTimer] = useState(30);
   const [isDisabled, setIsDisabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);

@@ -1,34 +1,15 @@
 import { useForm } from '@tanstack/react-form';
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
-import { createServerFn } from '@tanstack/start';
-import { and, eq } from 'drizzle-orm';
 import { toast } from 'sonner';
 import { z } from 'zod';
 
-import { db } from '~/db';
-import { usersTable } from '~/db/schema';
 import { authClient } from '~/lib/auth-client';
+import { getUserByEmail } from '~/server/auth';
 import { Button } from '~/components/ui/button';
 import { FieldInfo } from '~/components/ui/form';
 import { Input } from '~/components/ui/input';
 import { Label } from '~/components/ui/label';
 import { PasswordInput } from '~/components/ui/password-input';
-
-export const getUserId = createServerFn()
-  .validator(
-    z.object({
-      email: z.string().email(),
-    })
-  )
-  .handler(async ({ data }) => {
-    const [user] = await db
-      .select({
-        id: usersTable.id,
-      })
-      .from(usersTable)
-      .where(and(eq(usersTable.email, data.email), eq(usersTable.emailVerified, false)));
-    return user?.id;
-  });
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Invalid email' }),
@@ -55,8 +36,8 @@ function RouteComponent() {
       });
       if (error) {
         if (error.code === 'EMAIL_NOT_VERIFIED') {
-          const userId = await getUserId({ data: { email: value.email } });
-          navigate({ to: '/check-email/$userId', params: { userId } });
+          const user = await getUserByEmail({ data: { email: value.email } });
+          navigate({ to: '/check-email/$userId', params: { userId: user.id } });
         } else {
           toast.error(error.message ?? 'Unable to login, please try again later');
         }

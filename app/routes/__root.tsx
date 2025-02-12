@@ -1,25 +1,10 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router';
-import { createServerFn, Meta, Scripts } from '@tanstack/start';
-import { getRequestHeaders } from '@tanstack/start/server';
-import { NotFound } from '~/layouts/not-found';
+import { Meta, Scripts } from '@tanstack/start';
 
-import { auth } from '~/lib/auth';
+import { getSession } from '~/server/auth';
+import { NotFound } from '~/layouts/not-found';
 import { Toaster } from '~/components/ui/toast';
 import globalCss from '~/styles/global.css?url';
-
-export const getSession = createServerFn().handler(async () => {
-  const headersObject = getRequestHeaders();
-  const headers = new Headers();
-  Object.entries(headersObject).forEach(([key, value]) => {
-    if (value !== undefined) {
-      headers.append(key, value);
-    }
-  });
-  const session = await auth.api.getSession({
-    headers,
-  });
-  return session;
-});
 
 export const Route = createRootRoute({
   head: () => ({

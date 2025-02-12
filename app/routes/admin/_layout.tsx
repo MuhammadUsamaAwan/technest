@@ -1,7 +1,7 @@
 import { createFileRoute, Link, Outlet, redirect } from '@tanstack/react-router';
+
 import { AppBreadcrumbs } from '~/layouts/app-breadcrumbs';
 import { AppSidebar } from '~/layouts/app-sidebar';
-
 import { buttonVariants } from '~/components/ui/button';
 import { Separator } from '~/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '~/components/ui/sidebar';
