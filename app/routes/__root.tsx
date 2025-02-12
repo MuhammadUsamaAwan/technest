@@ -7,6 +7,7 @@ import { NotFound } from '~/layouts/not-found';
 
 import { auth } from '~/lib/auth';
 import { Toaster } from '~/components/ui/toast';
+import { TooltipProvider } from '~/components/ui/tooltip';
 import globalCss from '~/styles/global.css?url';
 
 export const getSession = createServerFn().handler(async () => {
@@ -73,7 +74,7 @@ function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
         <Meta />
       </head>
       <body>
-        {children}
+        <TooltipProvider delayDuration={500}>{children}</TooltipProvider>
         <Toaster />
         <Scripts />
       </body>
