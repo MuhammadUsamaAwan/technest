@@ -31,11 +31,8 @@ export const getUserId = createServerFn()
   });
 
 const loginSchema = z.object({
-  email: z.string({ required_error: 'Email is required' }).email({ message: 'Invalid email' }),
-  password: z
-    .string({ required_error: 'Password is required' })
-    .min(8, { message: 'Password must be at least 8 characters' })
-    .max(40, { message: 'Password must be at most 40 characters' }),
+  email: z.string().email({ message: 'Invalid email' }),
+  password: z.string().min(1, { message: 'Password is required' }),
 });
 
 export const Route = createFileRoute('/(auth)/_layout/login')({
