@@ -3,6 +3,7 @@ import { type User } from 'better-auth';
 import { ChevronsUpDownIcon, LogOutIcon } from 'lucide-react';
 
 import { authClient } from '~/lib/auth-client';
+import { getInitials } from '~/lib/utils';
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar';
 import {
   DropdownMenu,
@@ -31,7 +32,7 @@ export function NavUser({ user }: NavUserProps) {
             >
               <Avatar className='h-8 w-8 rounded-lg'>
                 {user.image && <AvatarImage src={user.image} alt={user.name} />}
-                <AvatarFallback className='rounded-lg'>CN</AvatarFallback>
+                <AvatarFallback className='rounded-lg'>{getInitials(user.name)}</AvatarFallback>
               </Avatar>
               <div className='grid flex-1 text-left text-sm leading-tight'>
                 <span className='truncate font-semibold'>{user.name}</span>
