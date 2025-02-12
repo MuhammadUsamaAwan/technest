@@ -1,4 +1,5 @@
-import { BookOpen, Bot, ChevronRight, Settings2, SquareTerminal } from 'lucide-react';
+import { Link } from '@tanstack/react-router';
+import { ChevronRightIcon, UserIcon } from 'lucide-react';
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import {
@@ -13,87 +14,13 @@ import {
 
 const navItems = [
   {
-    title: 'Playground',
+    title: 'User Management',
     url: '#',
-    icon: SquareTerminal,
-    isActive: true,
+    icon: UserIcon,
     items: [
       {
-        title: 'History',
-        url: '#',
-      },
-      {
-        title: 'Starred',
-        url: '#',
-      },
-      {
-        title: 'Settings',
-        url: '#',
-      },
-    ],
-  },
-  {
-    title: 'Models',
-    url: '#',
-    icon: Bot,
-    items: [
-      {
-        title: 'Genesis',
-        url: '#',
-      },
-      {
-        title: 'Explorer',
-        url: '#',
-      },
-      {
-        title: 'Quantum',
-        url: '#',
-      },
-    ],
-  },
-  {
-    title: 'Documentation',
-    url: '#',
-    icon: BookOpen,
-    items: [
-      {
-        title: 'Introduction',
-        url: '#',
-      },
-      {
-        title: 'Get Started',
-        url: '#',
-      },
-      {
-        title: 'Tutorials',
-        url: '#',
-      },
-      {
-        title: 'Changelog',
-        url: '#',
-      },
-    ],
-  },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings2,
-    items: [
-      {
-        title: 'General',
-        url: '#',
-      },
-      {
-        title: 'Team',
-        url: '#',
-      },
-      {
-        title: 'Billing',
-        url: '#',
-      },
-      {
-        title: 'Limits',
-        url: '#',
+        title: 'Users',
+        url: '/admin/users',
       },
     ],
   },
@@ -104,13 +31,13 @@ export function NavMain() {
     <SidebarGroup>
       <SidebarMenu>
         {navItems.map(item => (
-          <Collapsible key={item.title} asChild defaultOpen={item.isActive} className='group/collapsible'>
+          <Collapsible key={item.title} asChild className='group/collapsible'>
             <SidebarMenuItem>
               <CollapsibleTrigger asChild>
                 <SidebarMenuButton tooltip={item.title}>
                   {item.icon && <item.icon />}
                   <span>{item.title}</span>
-                  <ChevronRight className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
+                  <ChevronRightIcon className='ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90' />
                 </SidebarMenuButton>
               </CollapsibleTrigger>
               <CollapsibleContent>
@@ -118,9 +45,7 @@ export function NavMain() {
                   {item.items?.map(subItem => (
                     <SidebarMenuSubItem key={subItem.title}>
                       <SidebarMenuSubButton asChild>
-                        <a href={subItem.url}>
-                          <span>{subItem.title}</span>
-                        </a>
+                        <Link to={subItem.url}>{subItem.title}</Link>
                       </SidebarMenuSubButton>
                     </SidebarMenuSubItem>
                   ))}
