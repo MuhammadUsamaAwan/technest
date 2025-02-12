@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react';
-
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { createServerFn, Meta, Scripts } from '@tanstack/start';
 import { getRequestHeaders } from '@tanstack/start/server';
@@ -7,7 +5,6 @@ import { NotFound } from '~/layouts/not-found';
 
 import { auth } from '~/lib/auth';
 import { Toaster } from '~/components/ui/toast';
-import { TooltipProvider } from '~/components/ui/tooltip';
 import globalCss from '~/styles/global.css?url';
 
 export const getSession = createServerFn().handler(async () => {
@@ -61,20 +58,12 @@ export const Route = createRootRoute({
 
 function RootComponent() {
   return (
-    <RootDocument>
-      <Outlet />
-    </RootDocument>
-  );
-}
-
-function RootDocument({ children }: Readonly<{ children: ReactNode }>) {
-  return (
     <html lang='en'>
       <head>
         <Meta />
       </head>
       <body>
-        <TooltipProvider delayDuration={500}>{children}</TooltipProvider>
+        <Outlet />
         <Toaster />
         <Scripts />
       </body>

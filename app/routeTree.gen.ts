@@ -22,7 +22,9 @@ import { Route as authLayoutSignupImport } from './routes/(auth)/_layout/signup'
 import { Route as authLayoutResetPasswordSuccessImport } from './routes/(auth)/_layout/reset-password-success'
 import { Route as authLayoutResetPasswordImport } from './routes/(auth)/_layout/reset-password'
 import { Route as authLayoutLoginImport } from './routes/(auth)/_layout/login'
+import { Route as AdminLayoutPostsIndexImport } from './routes/admin/_layout/posts.index'
 import { Route as authLayoutForgotPasswordIndexImport } from './routes/(auth)/_layout/forgot-password.index'
+import { Route as AdminLayoutPostsSlugImport } from './routes/admin/_layout/posts.$slug'
 import { Route as authLayoutForgotPasswordEmailImport } from './routes/(auth)/_layout/forgot-password.$email'
 import { Route as authLayoutCheckEmailUserIdImport } from './routes/(auth)/_layout/check-email.$userId'
 
@@ -97,12 +99,24 @@ const authLayoutLoginRoute = authLayoutLoginImport.update({
   getParentRoute: () => authLayoutRoute,
 } as any)
 
+const AdminLayoutPostsIndexRoute = AdminLayoutPostsIndexImport.update({
+  id: '/posts/',
+  path: '/posts/',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
+
 const authLayoutForgotPasswordIndexRoute =
   authLayoutForgotPasswordIndexImport.update({
     id: '/forgot-password/',
     path: '/forgot-password/',
     getParentRoute: () => authLayoutRoute,
   } as any)
+
+const AdminLayoutPostsSlugRoute = AdminLayoutPostsSlugImport.update({
+  id: '/posts/$slug',
+  path: '/posts/$slug',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
 
 const authLayoutForgotPasswordEmailRoute =
   authLayoutForgotPasswordEmailImport.update({
@@ -214,12 +228,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLayoutForgotPasswordEmailImport
       parentRoute: typeof authLayoutImport
     }
+    '/admin/_layout/posts/$slug': {
+      id: '/admin/_layout/posts/$slug'
+      path: '/posts/$slug'
+      fullPath: '/admin/posts/$slug'
+      preLoaderRoute: typeof AdminLayoutPostsSlugImport
+      parentRoute: typeof AdminLayoutImport
+    }
     '/(auth)/_layout/forgot-password/': {
       id: '/(auth)/_layout/forgot-password/'
       path: '/forgot-password'
       fullPath: '/forgot-password'
       preLoaderRoute: typeof authLayoutForgotPasswordIndexImport
       parentRoute: typeof authLayoutImport
+    }
+    '/admin/_layout/posts/': {
+      id: '/admin/_layout/posts/'
+      path: '/posts'
+      fullPath: '/admin/posts'
+      preLoaderRoute: typeof AdminLayoutPostsIndexImport
+      parentRoute: typeof AdminLayoutImport
     }
   }
 }
@@ -264,10 +292,14 @@ const authRouteWithChildren = authRoute._addFileChildren(authRouteChildren)
 
 interface AdminLayoutRouteChildren {
   AdminLayoutIndexRoute: typeof AdminLayoutIndexRoute
+  AdminLayoutPostsSlugRoute: typeof AdminLayoutPostsSlugRoute
+  AdminLayoutPostsIndexRoute: typeof AdminLayoutPostsIndexRoute
 }
 
 const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
   AdminLayoutIndexRoute: AdminLayoutIndexRoute,
+  AdminLayoutPostsSlugRoute: AdminLayoutPostsSlugRoute,
+  AdminLayoutPostsIndexRoute: AdminLayoutPostsIndexRoute,
 }
 
 const AdminLayoutRouteWithChildren = AdminLayoutRoute._addFileChildren(
@@ -295,7 +327,9 @@ export interface FileRoutesByFullPath {
   '/admin/': typeof AdminLayoutIndexRoute
   '/check-email/$userId': typeof authLayoutCheckEmailUserIdRoute
   '/forgot-password/$email': typeof authLayoutForgotPasswordEmailRoute
+  '/admin/posts/$slug': typeof AdminLayoutPostsSlugRoute
   '/forgot-password': typeof authLayoutForgotPasswordIndexRoute
+  '/admin/posts': typeof AdminLayoutPostsIndexRoute
 }
 
 export interface FileRoutesByTo {
@@ -308,7 +342,9 @@ export interface FileRoutesByTo {
   '/verify-email': typeof authLayoutVerifyEmailRoute
   '/check-email/$userId': typeof authLayoutCheckEmailUserIdRoute
   '/forgot-password/$email': typeof authLayoutForgotPasswordEmailRoute
+  '/admin/posts/$slug': typeof AdminLayoutPostsSlugRoute
   '/forgot-password': typeof authLayoutForgotPasswordIndexRoute
+  '/admin/posts': typeof AdminLayoutPostsIndexRoute
 }
 
 export interface FileRoutesById {
@@ -326,7 +362,9 @@ export interface FileRoutesById {
   '/admin/_layout/': typeof AdminLayoutIndexRoute
   '/(auth)/_layout/check-email/$userId': typeof authLayoutCheckEmailUserIdRoute
   '/(auth)/_layout/forgot-password/$email': typeof authLayoutForgotPasswordEmailRoute
+  '/admin/_layout/posts/$slug': typeof AdminLayoutPostsSlugRoute
   '/(auth)/_layout/forgot-password/': typeof authLayoutForgotPasswordIndexRoute
+  '/admin/_layout/posts/': typeof AdminLayoutPostsIndexRoute
 }
 
 export interface FileRouteTypes {
@@ -342,7 +380,9 @@ export interface FileRouteTypes {
     | '/admin/'
     | '/check-email/$userId'
     | '/forgot-password/$email'
+    | '/admin/posts/$slug'
     | '/forgot-password'
+    | '/admin/posts'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -354,7 +394,9 @@ export interface FileRouteTypes {
     | '/verify-email'
     | '/check-email/$userId'
     | '/forgot-password/$email'
+    | '/admin/posts/$slug'
     | '/forgot-password'
+    | '/admin/posts'
   id:
     | '__root__'
     | '/'
@@ -370,7 +412,9 @@ export interface FileRouteTypes {
     | '/admin/_layout/'
     | '/(auth)/_layout/check-email/$userId'
     | '/(auth)/_layout/forgot-password/$email'
+    | '/admin/_layout/posts/$slug'
     | '/(auth)/_layout/forgot-password/'
+    | '/admin/_layout/posts/'
   fileRoutesById: FileRoutesById
 }
 
@@ -434,7 +478,9 @@ export const routeTree = rootRoute
       "filePath": "admin/_layout.tsx",
       "parent": "/admin",
       "children": [
-        "/admin/_layout/"
+        "/admin/_layout/",
+        "/admin/_layout/posts/$slug",
+        "/admin/_layout/posts/"
       ]
     },
     "/(auth)/_layout/login": {
@@ -469,9 +515,17 @@ export const routeTree = rootRoute
       "filePath": "(auth)/_layout/forgot-password.$email.tsx",
       "parent": "/(auth)/_layout"
     },
+    "/admin/_layout/posts/$slug": {
+      "filePath": "admin/_layout/posts.$slug.tsx",
+      "parent": "/admin/_layout"
+    },
     "/(auth)/_layout/forgot-password/": {
       "filePath": "(auth)/_layout/forgot-password.index.tsx",
       "parent": "/(auth)/_layout"
+    },
+    "/admin/_layout/posts/": {
+      "filePath": "admin/_layout/posts.index.tsx",
+      "parent": "/admin/_layout"
     }
   }
 }
