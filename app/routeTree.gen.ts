@@ -17,6 +17,7 @@ import { Route as IndexImport } from './routes/index'
 import { Route as AdminLayoutImport } from './routes/admin/_layout'
 import { Route as authLayoutImport } from './routes/(auth)/_layout'
 import { Route as AdminLayoutIndexImport } from './routes/admin/_layout/index'
+import { Route as AdminLayoutUsersImport } from './routes/admin/_layout/users'
 import { Route as authLayoutVerifyEmailImport } from './routes/(auth)/_layout/verify-email'
 import { Route as authLayoutSignupImport } from './routes/(auth)/_layout/signup'
 import { Route as authLayoutResetPasswordSuccessImport } from './routes/(auth)/_layout/reset-password-success'
@@ -63,6 +64,12 @@ const authLayoutRoute = authLayoutImport.update({
 const AdminLayoutIndexRoute = AdminLayoutIndexImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => AdminLayoutRoute,
+} as any)
+
+const AdminLayoutUsersRoute = AdminLayoutUsersImport.update({
+  id: '/users',
+  path: '/users',
   getParentRoute: () => AdminLayoutRoute,
 } as any)
 
@@ -193,6 +200,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof authLayoutVerifyEmailImport
       parentRoute: typeof authLayoutImport
     }
+    '/admin/_layout/users': {
+      id: '/admin/_layout/users'
+      path: '/users'
+      fullPath: '/admin/users'
+      preLoaderRoute: typeof AdminLayoutUsersImport
+      parentRoute: typeof AdminLayoutImport
+    }
     '/admin/_layout/': {
       id: '/admin/_layout/'
       path: '/'
@@ -263,10 +277,12 @@ const authRouteChildren: authRouteChildren = {
 const authRouteWithChildren = authRoute._addFileChildren(authRouteChildren)
 
 interface AdminLayoutRouteChildren {
+  AdminLayoutUsersRoute: typeof AdminLayoutUsersRoute
   AdminLayoutIndexRoute: typeof AdminLayoutIndexRoute
 }
 
 const AdminLayoutRouteChildren: AdminLayoutRouteChildren = {
+  AdminLayoutUsersRoute: AdminLayoutUsersRoute,
   AdminLayoutIndexRoute: AdminLayoutIndexRoute,
 }
 
@@ -292,6 +308,7 @@ export interface FileRoutesByFullPath {
   '/reset-password-success': typeof authLayoutResetPasswordSuccessRoute
   '/signup': typeof authLayoutSignupRoute
   '/verify-email': typeof authLayoutVerifyEmailRoute
+  '/admin/users': typeof AdminLayoutUsersRoute
   '/admin/': typeof AdminLayoutIndexRoute
   '/check-email/$userId': typeof authLayoutCheckEmailUserIdRoute
   '/forgot-password/$email': typeof authLayoutForgotPasswordEmailRoute
@@ -306,6 +323,7 @@ export interface FileRoutesByTo {
   '/reset-password-success': typeof authLayoutResetPasswordSuccessRoute
   '/signup': typeof authLayoutSignupRoute
   '/verify-email': typeof authLayoutVerifyEmailRoute
+  '/admin/users': typeof AdminLayoutUsersRoute
   '/check-email/$userId': typeof authLayoutCheckEmailUserIdRoute
   '/forgot-password/$email': typeof authLayoutForgotPasswordEmailRoute
   '/forgot-password': typeof authLayoutForgotPasswordIndexRoute
@@ -323,6 +341,7 @@ export interface FileRoutesById {
   '/(auth)/_layout/reset-password-success': typeof authLayoutResetPasswordSuccessRoute
   '/(auth)/_layout/signup': typeof authLayoutSignupRoute
   '/(auth)/_layout/verify-email': typeof authLayoutVerifyEmailRoute
+  '/admin/_layout/users': typeof AdminLayoutUsersRoute
   '/admin/_layout/': typeof AdminLayoutIndexRoute
   '/(auth)/_layout/check-email/$userId': typeof authLayoutCheckEmailUserIdRoute
   '/(auth)/_layout/forgot-password/$email': typeof authLayoutForgotPasswordEmailRoute
@@ -339,6 +358,7 @@ export interface FileRouteTypes {
     | '/reset-password-success'
     | '/signup'
     | '/verify-email'
+    | '/admin/users'
     | '/admin/'
     | '/check-email/$userId'
     | '/forgot-password/$email'
@@ -352,6 +372,7 @@ export interface FileRouteTypes {
     | '/reset-password-success'
     | '/signup'
     | '/verify-email'
+    | '/admin/users'
     | '/check-email/$userId'
     | '/forgot-password/$email'
     | '/forgot-password'
@@ -367,6 +388,7 @@ export interface FileRouteTypes {
     | '/(auth)/_layout/reset-password-success'
     | '/(auth)/_layout/signup'
     | '/(auth)/_layout/verify-email'
+    | '/admin/_layout/users'
     | '/admin/_layout/'
     | '/(auth)/_layout/check-email/$userId'
     | '/(auth)/_layout/forgot-password/$email'
@@ -434,6 +456,7 @@ export const routeTree = rootRoute
       "filePath": "admin/_layout.tsx",
       "parent": "/admin",
       "children": [
+        "/admin/_layout/users",
         "/admin/_layout/"
       ]
     },
@@ -456,6 +479,10 @@ export const routeTree = rootRoute
     "/(auth)/_layout/verify-email": {
       "filePath": "(auth)/_layout/verify-email.tsx",
       "parent": "/(auth)/_layout"
+    },
+    "/admin/_layout/users": {
+      "filePath": "admin/_layout/users.tsx",
+      "parent": "/admin/_layout"
     },
     "/admin/_layout/": {
       "filePath": "admin/_layout/index.tsx",
