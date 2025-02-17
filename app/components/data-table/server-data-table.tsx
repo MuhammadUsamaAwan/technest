@@ -7,12 +7,12 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '~
 import { DataTableFilters } from './data-table-filters';
 import { DataTablePagination } from './data-table-pagination';
 
-type DataTableProps<TData, TValue> = {
+type ServerDataTableProps<TData, TValue> = {
   columns: ColumnDef<TData, TValue>[];
   data: { data: TData[]; rowCount: number };
 };
 
-export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function ServerDataTable<TData, TValue>({ columns, data }: ServerDataTableProps<TData, TValue>) {
   const navigate = useNavigate();
   const { search } = useLocation();
 

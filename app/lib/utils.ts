@@ -36,3 +36,15 @@ export function formatDate(date: Date | string | number, opts: Intl.DateTimeForm
     ...opts,
   }).format(new Date(date));
 }
+
+export function formatDateTime(date: Date | string | number, opts: Intl.DateTimeFormatOptions = {}) {
+  return new Intl.DateTimeFormat('en-US', {
+    month: opts.month ?? 'long',
+    day: opts.day ?? 'numeric',
+    year: opts.year ?? 'numeric',
+    hour: opts.hour ?? '2-digit',
+    minute: opts.minute ?? '2-digit',
+    hour12: opts.hour12 ?? true,
+    ...opts,
+  }).format(new Date(date));
+}
