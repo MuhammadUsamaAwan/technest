@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { ChevronRightIcon, UserIcon } from 'lucide-react';
+import { ChevronRightIcon, GlobeIcon, PackageIcon, ReceiptIcon, TagsIcon, TicketIcon, UserIcon } from 'lucide-react';
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '~/components/ui/collapsible';
 import {
@@ -21,6 +21,69 @@ const navItems = [
       {
         title: 'Users',
         url: '/admin/users',
+      },
+    ],
+  },
+  {
+    title: 'Categories Management',
+    url: '#',
+    icon: TagsIcon,
+    items: [
+      {
+        title: 'Categories',
+        url: '/admin/categories',
+      },
+      {
+        title: 'Sub Categories',
+        url: '/admin/sub-categories',
+      },
+    ],
+  },
+  {
+    title: 'Products Management',
+    url: '#',
+    icon: PackageIcon,
+    items: [
+      {
+        title: 'Products',
+        url: '/admin/products',
+      },
+    ],
+  },
+  {
+    title: 'Orders Management',
+    url: '#',
+    icon: ReceiptIcon,
+    items: [
+      {
+        title: 'Orders',
+        url: '/admin/orders',
+      },
+    ],
+  },
+  {
+    title: 'Coupons Management',
+    url: '#',
+    icon: TicketIcon,
+    items: [
+      {
+        title: 'Coupons',
+        url: '/admin/coupons',
+      },
+    ],
+  },
+  {
+    title: 'Website Management',
+    url: '#',
+    icon: GlobeIcon,
+    items: [
+      {
+        title: 'Pages',
+        url: '/admin/pages',
+      },
+      {
+        title: 'Settings',
+        url: '/admin/settings',
       },
     ],
   },
