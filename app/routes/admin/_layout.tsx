@@ -33,8 +33,10 @@ function RouteComponent() {
             Back to Site
           </Link>
         </header>
-        <div className='flex flex-1 flex-col gap-4 p-4'>
-          <Outlet />
+        <div className='flex min-h-[calc(100vh-4rem)] flex-col'>
+          <div className='flex-1 p-4'>
+            <Outlet />
+          </div>
         </div>
       </SidebarInset>
     </SidebarProvider>

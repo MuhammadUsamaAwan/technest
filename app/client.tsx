@@ -1,5 +1,4 @@
 /// <reference types="vinxi/types/client" />
-import * as React from 'react';
 import { hydrateRoot } from 'react-dom/client';
 
 import { StartClient } from '@tanstack/start';
